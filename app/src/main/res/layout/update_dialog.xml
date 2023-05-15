@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Customer Name"
+        android:hint="Card Holder Name"
         android:fontFamily="@font/tomorrow_medium"
         android:inputType="textPersonName" />
 
@@ -21,7 +21,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:maxLength="10"
-        android:hint="Customer Contact"
+        android:hint="CVC"
         android:fontFamily="@font/tomorrow_medium"
         android:inputType="number"/>
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Address"
+        android:hint="Card Number"
         android:maxLength="10"
         android:fontFamily="@font/tomorrow_medium"
         android:inputType="textPersonName" />
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Expiration Date"
         android:fontFamily="@font/tomorrow_medium"
 
         android:inputType="textPersonName"
@@ -56,7 +56,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/Darkgreen"
-        android:text="Update Delivery"
+        android:text="Update Payment details"
         android:fontFamily="@font/tomorrow_medium"
         />
 
