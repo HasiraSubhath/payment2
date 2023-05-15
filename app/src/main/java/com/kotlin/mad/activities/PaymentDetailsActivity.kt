@@ -9,16 +9,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.kotlin.mad.R
-import com.kotlin.mad.models.InquiryModel
+import com.kotlin.mad.models.PaymentModel
 import com.google.firebase.database.FirebaseDatabase
 
-class InquiryDetailsActivity : AppCompatActivity() {
+class PaymentDetailsActivity : AppCompatActivity() {
 
     private lateinit var tvCId: TextView
     private lateinit var tvCName: TextView
     private lateinit var tvCNumber: TextView
-    private lateinit var tvCAddress: TextView
-    private lateinit var tvCEmail: TextView
+    private lateinit var tvCCvv: TextView
+    private lateinit var tvCDate: TextView
 
     private lateinit var btnUpdate: Button
     private lateinit var btnDelete: Button
@@ -26,7 +26,7 @@ class InquiryDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_inquiry_details)
+        setContentView(R.layout.activity_payment_details)
 
         initView()
         setValuesToViews()
@@ -49,13 +49,13 @@ class InquiryDetailsActivity : AppCompatActivity() {
     private fun deleteRecord(
         id: String
     ){
-        val dbRef = FirebaseDatabase.getInstance().getReference("DeliveryDB").child(id)
+        val dbRef = FirebaseDatabase.getInstance().getReference("PaymentDB").child(id)
         val mTask = dbRef.removeValue()
 
         mTask.addOnSuccessListener {
             Toast.makeText(this, " data deleted", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this, InquiryFetchingActivity::class.java)
+            val intent = Intent(this, PaymentFetchingActivity::class.java)
             finish()
             startActivity(intent)
         }.addOnFailureListener{ error ->
@@ -71,8 +71,8 @@ class InquiryDetailsActivity : AppCompatActivity() {
         tvCId = findViewById(R.id.tvCId)
         tvCName = findViewById(R.id.tvCName)
         tvCNumber = findViewById(R.id.tvCNumber)
-        tvCAddress = findViewById(R.id.tvCAddress)
-        tvCEmail = findViewById(R.id.tvCEmail)
+        tvCCvv = findViewById(R.id.tvCCvv)
+        tvCDate = findViewById(R.id.tvCDate)
 
         btnUpdate = findViewById(R.id.btnUpdate)
         btnDelete = findViewById(R.id.btnDelete)
@@ -83,8 +83,8 @@ class InquiryDetailsActivity : AppCompatActivity() {
         tvCId.text = intent.getStringExtra("cId")
         tvCName.text = intent.getStringExtra("cName")
         tvCNumber.text = intent.getStringExtra("cNumber")
-        tvCAddress.text = intent.getStringExtra("cAddress")
-        tvCEmail.text = intent.getStringExtra("cEmail")
+        tvCCvv.text = intent.getStringExtra("cCvv")
+        tvCDate.text = intent.getStringExtra("cDate")
 
     }
 
@@ -101,16 +101,16 @@ class InquiryDetailsActivity : AppCompatActivity() {
 
         val etCName = mDialogView.findViewById<EditText>(R.id.etCName)
         val etCNumber = mDialogView.findViewById<EditText>(R.id.etCNumber)
-        val etCAddress = mDialogView.findViewById<EditText>(R.id.etCAddress)
-        val etCEmail = mDialogView.findViewById<EditText>(R.id.etCEmail)
+        val etCCvv = mDialogView.findViewById<EditText>(R.id.etCCvv)
+        val etCDate = mDialogView.findViewById<EditText>(R.id.etCDate)
 
         val btnUpdateData = mDialogView.findViewById<Button>(R.id.btnUpdateData)
 
         //update
         etCName.setText(intent.getStringExtra("cName").toString())
         etCNumber.setText(intent.getStringExtra("cNumber").toString())
-        etCAddress.setText(intent.getStringExtra("cAddress").toString())
-        etCEmail.setText(intent.getStringExtra("cEmail").toString())
+        etCCvv.setText(intent.getStringExtra("cCvv").toString())
+        etCDate.setText(intent.getStringExtra("cDate").toString())
 
         mDialog.setTitle("Updating $cName Record")
 
@@ -118,12 +118,12 @@ class InquiryDetailsActivity : AppCompatActivity() {
         alertDialog.show()
 
         btnUpdateData.setOnClickListener {
-            updateDeliveryData(
+            updatePaymentData(
                 cId,
                 etCName.text.toString(),
                 etCNumber.text.toString(),
-                etCAddress.text.toString(),
-                etCEmail.text.toString()
+                etCCvv.text.toString(),
+                etCDate.text.toString()
 
             )
 
@@ -132,8 +132,8 @@ class InquiryDetailsActivity : AppCompatActivity() {
             //we are setting updated data to our text views
             tvCName.text = etCName.text.toString()
             tvCNumber.text = etCNumber.text.toString()
-            tvCAddress.text = etCAddress.text.toString()
-            tvCEmail.text = etCEmail.text.toString()
+            tvCCvv.text = etCCvv.text.toString()
+            tvCDate.text = etCDate.text.toString()
 
             alertDialog.dismiss()
 
@@ -141,15 +141,15 @@ class InquiryDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun updateDeliveryData(
+    private fun updatePaymentData(
         id: String,
         name: String,
         number: String,
-        address: String,
-        email: String
+        cvv: String,
+        date: String
     ){
-        val dbRef = FirebaseDatabase.getInstance().getReference("DeliveryDB").child(id)
-        val deliveryInfo = InquiryModel(id, name, number, address, email)
-        dbRef.setValue(deliveryInfo)
+        val dbRef = FirebaseDatabase.getInstance().getReference("PaymentDB").child(id)
+        val paymentIno = PaymentModel(id, name, number, cvv, date)
+        dbRef.setValue(paymentIno)
     }
 }

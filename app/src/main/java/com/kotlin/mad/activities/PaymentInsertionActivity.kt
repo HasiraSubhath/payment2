@@ -5,19 +5,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.kotlin.mad.models.InquiryModel
+import com.kotlin.mad.models.PaymentModel
 import com.kotlin.mad.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class InquiryInsertionActivity : AppCompatActivity() {
+class PaymentInsertionActivity : AppCompatActivity() {
 
     //initializing variables
 
     private lateinit var etCName: EditText
     private lateinit var etCNumber: EditText
-    private lateinit var etCAddress: EditText
-    private lateinit var etCEmail: EditText
+    private lateinit var etCCvv: EditText
+    private lateinit var etCDate: EditText
     private lateinit var btnSaveData: Button
 
     private lateinit var dbRef: DatabaseReference
@@ -29,40 +29,40 @@ class InquiryInsertionActivity : AppCompatActivity() {
 
         etCName = findViewById(R.id.etCName)
         etCNumber = findViewById(R.id.etCNumber)
-        etCAddress = findViewById(R.id.etCAddress)
-        etCEmail = findViewById(R.id.etCEmail)
+        etCCvv = findViewById(R.id.etCCvv)
+        etCDate = findViewById(R.id.etCDate)
         btnSaveData = findViewById(R.id.btnSave)
 
-        dbRef = FirebaseDatabase.getInstance().getReference("DeliveryDB")
+        dbRef = FirebaseDatabase.getInstance().getReference("PaymentDB")
 
         btnSaveData.setOnClickListener {
-            saveDeliveryData()
+            savePaymentData()
         }
 
     }
 
-    private fun saveDeliveryData() {
+    private fun savePaymentData() {
 
         //Geting Values
         val cName = etCName.text.toString()
         val cNumber = etCNumber.text.toString()
-        val cAddress = etCAddress.text.toString()
-        val cEmail = etCEmail.text.toString()
+        val cCvv = etCCvv.text.toString()
+        val cDate = etCDate.text.toString()
 
         //validation
-        if (cName.isEmpty() || cNumber.isEmpty() || cAddress.isEmpty() || cEmail.isEmpty()) {
+        if (cName.isEmpty() || cNumber.isEmpty() || cCvv.isEmpty() || cDate.isEmpty()) {
 
             if (cName.isEmpty()) {
-                etCName.error = "Please enter Customer Name"
+                etCName.error = "Please enter Card Holders Name"
             }
             if (cNumber.isEmpty()) {
-                etCNumber.error = "Please Customer Number"
+                etCNumber.error = "Please Card Number"
             }
-            if (cAddress.isEmpty()) {
-                etCAddress.error = "Please Address"
+            if (cCvv.isEmpty()) {
+                etCCvv.error = "Please Enter CVV"
             }
-            if (cEmail.isEmpty()) {
-                etCEmail.error = "Please Email"
+            if (cDate.isEmpty()) {
+                etCDate.error = "Please Enter Expire year month"
             }
             Toast.makeText(this, "please check Some areas are not filled", Toast.LENGTH_LONG).show()
         } else {
@@ -70,17 +70,17 @@ class InquiryInsertionActivity : AppCompatActivity() {
             //genrate unique ID
             val cId = dbRef.push().key!!
 
-            val bill = InquiryModel(cId, cName, cNumber, cAddress, cEmail)
+            val payment = PaymentModel(cId, cName, cNumber, cCvv, cDate)
 
-            dbRef.child(cId).setValue(bill)
+            dbRef.child(cId).setValue(payment)
                 .addOnCompleteListener {
-                    Toast.makeText(this, "All data insert successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "All card details insert successfully", Toast.LENGTH_SHORT).show()
 
                     //clear data after insert
                     etCName.text.clear()
                     etCNumber.text.clear()
-                    etCAddress.text.clear()
-                    etCEmail.text.clear()
+                    etCCvv.text.clear()
+                    etCDate.text.clear()
 
 
                 }.addOnFailureListener { err ->

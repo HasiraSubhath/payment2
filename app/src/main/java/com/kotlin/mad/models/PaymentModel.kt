@@ -1,10 +1,10 @@
 package com.kotlin.mad.models
 
-data class InquiryModel(
+data class PaymentModel(
     var cId: String? = null,
     var cName: String? = null,
     var cNumber: String? = null,
-    var cAddress: String? = null,
-    var cEmail: String? = null
+    var cCvv: String? = null,
+    var cDate: String? = null
 
 )

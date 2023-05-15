@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.mad.R
-import com.kotlin.mad.models.InquiryModel
+import com.kotlin.mad.models.PaymentModel
 
-class InquiryAdapter(private val billList: ArrayList<InquiryModel>) :
-    RecyclerView.Adapter<InquiryAdapter.ViewHolder>() {
+class PaymentAdapter(private val paymentList: ArrayList<PaymentModel>) :
+    RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
 
@@ -22,17 +22,17 @@ class InquiryAdapter(private val billList: ArrayList<InquiryModel>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.inquiry_list_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.payment_list_item, parent, false)
         return ViewHolder(itemView, mListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentEmp = billList[position]
+        val currentEmp = paymentList[position]
         holder.tvCName.text = currentEmp.cName
     }
 
     override fun getItemCount(): Int {
-        return billList.size
+        return paymentList.size
     }
 
     class ViewHolder(itemView: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {

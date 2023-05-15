@@ -7,64 +7,64 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kotlin.mad.adapters.InquiryAdapter
-import com.kotlin.mad.models.InquiryModel
+import com.kotlin.mad.adapters.PaymentAdapter
+import com.kotlin.mad.models.PaymentModel
 import com.kotlin.mad.R
 import com.google.firebase.database.*
 
-class InquiryFetchingActivity : AppCompatActivity() {
+class PaymentFetchingActivity : AppCompatActivity() {
 
     private lateinit var empRecyclerView: RecyclerView
     private lateinit var tvLoadingData: TextView
-    private lateinit var billList: ArrayList<InquiryModel>
+    private lateinit var paymentList: ArrayList<PaymentModel>
     private lateinit var dbRef: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fetching)
+        setContentView(R.layout.activity_payment_fetching)
 
         empRecyclerView = findViewById(R.id.rvEmp)
         empRecyclerView.layoutManager = LinearLayoutManager(this)
         empRecyclerView.setHasFixedSize(true)
         tvLoadingData = findViewById(R.id.tvLoadingData)
 
-        billList = arrayListOf<InquiryModel>()
+        paymentList = arrayListOf<PaymentModel>()
 
-        getDeliveryData()
+        getPaymentData()
 
 
     }
 
-    private fun getDeliveryData() {
+    private fun getPaymentData() {
 
         empRecyclerView.visibility = View.GONE
         tvLoadingData.visibility = View.VISIBLE
 
-        dbRef = FirebaseDatabase.getInstance().getReference("DeliveryDB")
+        dbRef = FirebaseDatabase.getInstance().getReference("PaymentDB")
 
         dbRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-               billList.clear()
+               paymentList.clear()
                 if (snapshot.exists()){
                     for (empSnap in snapshot.children){
-                        val billData = empSnap.getValue(InquiryModel::class.java)
-                        billList.add(billData!!)
+                        val paymentData = empSnap.getValue(PaymentModel::class.java)
+                        paymentList.add(paymentData!!)
                     }
-                    val mAdapter = InquiryAdapter(billList)
+                    val mAdapter = PaymentAdapter(paymentList)
                     empRecyclerView.adapter = mAdapter
 
-                    mAdapter.setOnItemClickListener(object : InquiryAdapter.onItemClickListener{
+                    mAdapter.setOnItemClickListener(object : PaymentAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
 
-                            val intent = Intent(this@InquiryFetchingActivity, InquiryDetailsActivity::class.java)
+                            val intent = Intent(this@PaymentFetchingActivity, PaymentDetailsActivity::class.java)
 
                             //put extra(passing data to another activity)
-                            intent.putExtra("cId", billList[position].cId)
-                            intent.putExtra("cName", billList[position].cName)
-                            intent.putExtra("cNumber", billList[position].cNumber)
-                            intent.putExtra("cAddress", billList[position].cAddress)
-                            intent.putExtra("cEmail", billList[position].cEmail)
+                            intent.putExtra("cId", paymentList[position].cId)
+                            intent.putExtra("cName", paymentList[position].cName)
+                            intent.putExtra("cNumber", paymentList[position].cNumber)
+                            intent.putExtra("cCvv", paymentList[position].cCvv)
+                            intent.putExtra("cDate", paymentList[position].cDate)
                             startActivity(intent)
                         }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.InquiryDetailsActivity">
+    tools:context=".activities.PaymentDetailsActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="CVC"
+                    android:text="Card Number"
                     android:fontFamily="@font/tomorrow_medium"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -250,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Card Number"
+                    android:text="CVV"
                     android:fontFamily="@font/tomorrow_medium"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -266,7 +266,7 @@
                 android:layout_weight="1.4">
 
                 <TextView
-                    android:id="@+id/tvCAddress"
+                    android:id="@+id/tvCCvv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -320,7 +320,7 @@
                 android:layout_weight="1.4">
 
                 <TextView
-                    android:id="@+id/tvCEmail"
+                    android:id="@+id/tvCDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -20,32 +20,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:maxLength="10"
-        android:hint="CVC"
+        android:maxLength="16"
+        android:hint="Card Number"
         android:fontFamily="@font/tomorrow_medium"
         android:inputType="number"/>
 
     <EditText
-        android:id="@+id/etCAddress"
+        android:id="@+id/etCCvv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Card Number"
-        android:maxLength="10"
+        android:hint="CVV"
+
+        android:maxLength="3"
         android:fontFamily="@font/tomorrow_medium"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etCEmail"
+        android:id="@+id/etCDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Expiration Date"
+        android:maxLength="05"
+
         android:fontFamily="@font/tomorrow_medium"
 
-        android:inputType="textPersonName"
+        android:inputType="date"
 
         />
 
